@@ -4,7 +4,9 @@ import AppRoutes from './AppRoutes';
 import AuthRoutes from './AuthRoutes';
 
 const Routes = () => {
-  return <AuthRoutes />;
+  const signed = false;
+
+  return signed ? <AppRoutes /> : <AuthRoutes />;
 };
 
 export default Routes;
