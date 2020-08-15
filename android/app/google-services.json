@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "429226289791",
+    "firebase_url": "https://dspsas-d0668.firebaseio.com",
+    "project_id": "dspsas-d0668",
+    "storage_bucket": "dspsas-d0668.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:429226289791:android:8253a84a99c81b95066d4a",
+        "android_client_info": {
+          "package_name": "com.dspsas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "429226289791-kmhft2q32q11j3kl906ejc1u08a3vj7b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dspsas",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "429226289791-01u9j59eko1naus2o29dp4itifnpsce0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdLUJIeTDPNK3hAAskYntTZYR3pRkzWKs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "429226289791-01u9j59eko1naus2o29dp4itifnpsce0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

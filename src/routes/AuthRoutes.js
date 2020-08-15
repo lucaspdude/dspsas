@@ -6,8 +6,14 @@ const Tab = createBottomTabNavigator();
 
 export default function MyTabs() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="SignIn" component={SignIn} />
+    <Tab.Navigator tabBarVisible={false}>
+      <Tab.Screen
+        name="SignIn"
+        component={SignIn}
+        options={{
+          tabBarVisible: false,
+        }}
+      />
     </Tab.Navigator>
   );
 }
