@@ -1,6 +1,7 @@
 import React, {createContext, useState, useEffect} from 'react';
 
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
 
 GoogleSignin.configure({
@@ -11,17 +12,71 @@ GoogleSignin.configure({
 
 const AuthContext = createContext({signed: true});
 
+const getUserProfileData = async (user) => {
+  await firestore()
+    .collection('users')
+    .doc(user.uid)
+    .get()
+    .then((documentSnapshot) => {
+      setUserData(documentSnapshot.data());
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+const createUserProfileDocument = async (userAuth, additionalData) => {
+  if (!userAuth) return;
+  const userRef = firestore().collection('users').doc(userAuth.uid);
+  const snapShot = await userRef.get();
+
+  if (!snapShot.exists) {
+    const {displayName, email, photoURL} = userAuth;
+    const createdAt = new Date();
+    const identifier = displayName.replace(/\s/g, '.');
+    try {
+      const response = await userRef.set({
+        displayName,
+        email,
+        photoURL,
+        createdAt,
+        identifier,
+      });
+      return response.data();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  return snapShot.data();
+};
+
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     auth().onAuthStateChanged((currentUser) => {
       setUser(currentUser);
+      createUserProfileDocument(currentUser);
     });
     return () => {
       setUser(null);
     };
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      firestore()
+        .collection('users')
+        .doc(user.uid)
+        .get()
+        .then((documentSnapshot) => {
+          setUserData(documentSnapshot.data());
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [user]);
 
   async function SignInContext() {
     try {
@@ -50,6 +105,7 @@ export const AuthProvider = ({children}) => {
       value={{
         signed: !!user,
         user,
+        userData,
         SignInContext,
         signOutContext,
       }}>
